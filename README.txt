@@ -17,3 +17,4 @@ Takes a helical bundle with hydrogen bond networks and add another network at th
 .cst file to keep constraints for previous hydrogen bond-network #bug in hbnet, need to uncomment output constraints from ouput cst
 .comp file to control aa distribution
  
+#Check CRLF versus LF issues if files don't load in Rosetta
