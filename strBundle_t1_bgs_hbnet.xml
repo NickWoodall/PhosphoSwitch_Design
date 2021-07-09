@@ -1,0 +1,138 @@
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+
+		ref2015_cart.wts
+		ref2015_cst.wts
+		ref2015_memb.wts
+		ref2015_soft.wts
+		ref2015.wts
+		<ScoreFunction name="hard" weights="ref2015"/>
+		<ScoreFunction name="soft" weights="ref2015_soft"/>
+		<ScoreFunction name="cst" weights="ref2015_cst"/>
+		
+
+
+
+	</SCOREFXNS>
+	<RESIDUE_SELECTORS>
+		<Layer name="core" select_core="true" core_cutoff="5" />
+		<Layer name="boundary" select_boundary="true" />
+		<Layer name="surface" select_surface="true" />
+
+
+		
+
+
+		<Not name="not_core" selector="core" />
+		
+		<Layer name="core_or_boundary" select_core="true" select_boundary="true" core_cutoff="5"/>
+		<Not name="not_core_or_boundary" selector="core_or_boundary" />
+
+
+		<Index name="sta" resnums="107"/>
+		<Index name="rt" resnums="111"/>
+
+		<Or name="start" selectors="sta,rt" />
+		
+		<Index name="chainA_near_start" resnums="21-35"/>
+		<Index name="chainB_near_start" resnums="36-51"/>
+		<Index name="chainC_near_start" resnums="88-105" />
+		<Index name="chainD_near_start" resnums="106-122"/>
+
+		<Or name="for_hbnet" selectors="chainA_near_start,chainB_near_start,chainC_near_start,chainD_near_start"/>
+
+		
+		<Not name="not_for_hbnet" selector="for_hbnet" />
+
+		
+
+	</RESIDUE_SELECTORS>
+	
+	<TASKOPERATIONS>
+		<InitializeFromCommandline name="init"/> Reads command line flags like -ex1 -ex2  (not resfile)
+		<IncludeCurrent name="current" /> Uses the input rotamers, can be lost after packing
+		<LimitAromaChi2 name="arochi" /> Rotamer Library Smoothing means lots of avaible F,Y and H rotamers far from 90, limits these poor rotamers (Can be used for W)
+		<ExtraRotamersGeneric name="ex1_ex2" ex1="1" ex2="1" /> turns on more rotamers
+		<ExtraRotamersGeneric name="ex1" ex1="1" />
+		<ExtraRotamersGeneric name="exALL" ex1="1" ex2="1" ex3="1" ex4="1" />
+		
+		<ReadResfile name="yRes_straightBundle" filename="insTyr_straightBundle.res"/>
+		<ReadResfile name="holdPhos" filename="holdPhos.res" />
+		
+		<OperateOnResidueSubset name="central_tyrosine" selector="start" >
+			<RestrictToRepackingRLT/>
+		</OperateOnResidueSubset>
+		<OperateOnResidueSubset name="limit_area_hbnet" selector="not_for_hbnet"  >
+			<PreventRepackingRLT/>
+		</OperateOnResidueSubset>
+
+		<OperateOnResidueSubset name="core_or_boundary_Only_hbnet" selector="not_core_or_boundary" >
+			<PreventRepackingRLT/>
+		</OperateOnResidueSubset>
+			
+		
+
+	</TASKOPERATIONS>
+	<FILTERS>
+		ResidueCount name="ALA_count" max_residue_count="5" residue_types="ALA" residue_selector="core" confidence="1"/>
+	</FILTERS>
+	<MOVERS>
+		<MakeBundle name="straightBundle" set_dihedrals="true" set_bondlengths="true" set_bondangles="true" residue_name="ALA" crick_params_file="alpha_helix" r0="6.4" omega0="0" helix_length="35" use_degrees="true" > pretty good with moving around the TYR
+
+			<Helix delta_omega0="0" delta_omega1="0" />
+			<Helix delta_omega0="90" z0_offset="1" invert="1" />
+			<Helix delta_omega0="180" delta_omega1="0" z0_offset="0" />
+			<Helix delta_omega0="270" delta_omega1="-34" invert="1" z0_offset="3.5" />
+		</MakeBundle>-->
+
+		<!-- <BundleGridSampler name="straightBundle_bgs" scorefxn="hard" set_dihedrals="true" set_bondlengths="true" set_bondangles="true" residue_name="ALA" crick_params_file="alpha_helix" r0="6.5" omega0="0" helix_length="35" use_degrees="true" > pretty good with moving around the TYR
+
+			<Helix delta_omega0="0" delta_omega1="0" />
+
+			Helix delta_omega0="90" z0_offset="1" invert="1" /> 
+			<Helix delta_omega0="90" invert="1" z0_offset_min="1" z0_offset_max="3" z0_offset_samples="12" delta_omega1_min="-15" delta_omega1_max="15" delta_omega1_samples="6" />
+
+			<Helix delta_omega0="180" delta_omega1="0" z0_offset="0" /> 
+			Helix delta_omega0="270" delta_omega1="-34" invert="1" z0_offset="3.5" /> 
+			<Helix delta_omega0="270" delta_omega1="-35" invert="1" z0_offset_min="3" z0_offset_max="4" z0_offset_samples="6" />
+		</BundleGridSampler>-->
+
+
+		<BundleGridSampler name="strBundle_t1" scorefxn="hard" helix_length="35" set_dihedrals="true" set_bondlengths="true" residue_name="ALA" crick_params_file="alpha_helix" omega0="%%all_omega0_in%%" r0="%%all_r0_in%%" use_degrees="true">
+
+			<Helix delta_omega0="0" delta_omega1="%%h1_delta_omega1_in%%" z0_offset="%%h1_z0_offset_in%%" />
+			<Helix delta_omega0="90" delta_omega1="%%h2_delta_omega1_in%%" z0_offset="%%h2_z0_offset_in%%" invert="1" />
+			<Helix delta_omega0="180" delta_omega1="%%h3_delta_omega1_in%%" z0_offset="%%h3_z0_offset_in%%" />
+			<Helix delta_omega0="270" delta_omega1="%%h4_delta_omega1_in%%" z0_offset="%%h4_z0_offset_in%%" invert="1" />
+
+		</BundleGridSampler> 
+
+	
+
+		<PackRotamersMover name="insTyr_straightBundle" task_operations="yRes_straightBundle,exALL,init,current,arochi" />
+		<MinMover name="hardmin_sconly" scorefxn="cst" chi="1" bb="0" bondangle="0" bondlength="0"/>
+
+		<HBNetStapleInterface scorefxn="hard" name="hbnet22" hb_threshold="-0.6" minimize="false" design_residues="STNQHYW"  core_selector="core" show_task="1" store_subnetworks="0" verbose="true" write_network_pdbs="false" max_unsat_Hpol="2" min_percent_hbond_capacity="0.7" min_helices_contacted_by_network="2" min_networks_per_pose="1" max_networks_per_pose="2" task_operations="arochi,exALL,current,limit_area_hbnet,holdPhos,core_or_boundary_Only_hbnet" start_selector="start" use_aa_dependent_weights="true" monte_carlo_branch="true" total_num_mc_runs="500000" monte_carlo_seed_must_be_buried="true" max_network_size="5" />
+
+
+
+
+
+	
+	</MOVERS>
+	<APPLY_TO_POSE>
+	</APPLY_TO_POSE>
+	<PROTOCOLS>
+
+		<Add mover="strBundle_t1" />
+		Add mover="straightBundle_bgs" />
+		<Add mover="insTyr_straightBundle" />
+		<Add mover="hardmin_sconly" />
+		<Add mover="hbnet22" />
+
+
+
+	</PROTOCOLS>
+	<OUTPUT />
+</ROSETTASCRIPTS>
+

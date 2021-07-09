@@ -1,0 +1,1 @@
+/software/rosetta/latest/bin/rosetta_scripts.hdf5.linuxgccrelease -parser:protocol gmc_hb.xml -overwrite -s st1_2064dummy_0001_0005.pdb -parser:script_vars in=2064_5_1.cst

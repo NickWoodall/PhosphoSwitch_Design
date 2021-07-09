@@ -1,0 +1,10 @@
+NATRO
+start
+
+#104 A PIKAA D Loop me baby one more time
+106 D PIKAA L
+107 D PIKAA Y
+108 D PIKAA E
+110 D PIKAA L
+111 D PIKAA Y
+114 D PIKAA L

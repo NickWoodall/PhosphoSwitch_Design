@@ -1,0 +1,24 @@
+# out_str_t1/st1_2064st1_2064dummy_0001_network_1.cst
+# network_1	A_S_31,A_H_34,B_N_37,D_Y_107	4	3.6826	5	0.9	0	5	3	
+# angle_AHD = 139.522, angle_BAH = 121.436, dist_AH = 2.37668121.436, unweighted hb_energy = -0.651536
+AtomPair  O   31  ND2 37 BOUNDED 2.6 3.2042 0.2 hbond
+# angle_AHD = 133.428, angle_BAH = 118.314, dist_AH = 1.99207118.314, unweighted hb_energy = -1.02434
+AtomPair  OG  31  ND2 37 BOUNDED 2.6 3 0.2 hbond
+# angle_AHD = 147.6, angle_BAH = 105.219, dist_AH = 2.0371105.219, unweighted hb_energy = -0.956671
+AtomPair  OH  107  OG  31 BOUNDED 2.6 3 0.2 hbond
+# angle_AHD = 133.648, angle_BAH = 115.535, dist_AH = 2.14646115.535, unweighted hb_energy = -0.248415
+AtomPair  OG  31  OH  107 BOUNDED 2.6 3 0.2 hbond
+# angle_AHD = 147.804, angle_BAH = 118.177, dist_AH = 2.10606118.177, unweighted hb_energy = -0.896724
+AtomPair  OD1 37  ND1 34 BOUNDED 2.6 3.00021 0.2 hbond
+# out_str_t1/st1_2064st1_2064dummy_0001_network_4.cst
+# network_4	A_S_27,B_S_44,B_Q_48,C_S_94,D_Y_111	5	12.9653	5	0.75	1	3	4	
+# angle_AHD = 128.748, angle_BAH = 122.802, dist_AH = 1.80576122.802, unweighted hb_energy = -0.280963
+AtomPair  O   24  OG  27 BOUNDED 2.32054 2.72054 0.2 hbond
+# angle_AHD = 171.874, angle_BAH = 103.264, dist_AH = 2.14136103.264, unweighted hb_energy = -1.17724
+AtomPair  OG  27  OG  44 BOUNDED 2.6 3.09487 0.2 hbond
+# angle_AHD = 144.225, angle_BAH = 113.101, dist_AH = 1.86623113.101, unweighted hb_energy = -1.19217
+AtomPair  OG  27  OH  111 BOUNDED 2.6 3 0.2 hbond
+# angle_AHD = 143.428, angle_BAH = 131.877, dist_AH = 2.35867131.877, unweighted hb_energy = -0.82235
+AtomPair  OG  44  NE2 48 BOUNDED 2.6 3.21751 0.2 hbond
+# angle_AHD = 153.973, angle_BAH = 127.837, dist_AH = 1.63458127.837, unweighted hb_energy = -0.718829
+AtomPair  OE1 48  OG  94 BOUNDED 2.33267 2.73267 0.2 hbond
